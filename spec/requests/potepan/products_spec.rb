@@ -5,7 +5,7 @@ RSpec.describe "Potepan::Products", type: :request do
     let(:product) {create(:product)}
 
     before do
-      get potepan_product_path, params: {id: products_id}
+      get potepan_product_path, params: {id: products.id}
     end
 
     it "正常にレスポンスを返すこと" do
