@@ -1,8 +1,11 @@
+<% provide(:title, @product.name) %>
 <section class="lightSection clearfix pageHeader">
   <div class="container">
     <div class="row">
       <div class="col-xs-6">
-        <%= render 'shared/page_title', page_title: @product.name %>
+        <div class="page-title">
+          <h2><%= @product.name %></h2>
+        </div>
       </div>
       <div class="col-xs-6">
         <ol class="breadcrumb pull-right">

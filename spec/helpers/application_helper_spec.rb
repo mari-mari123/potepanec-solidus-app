@@ -5,24 +5,24 @@ RSpec.describe ApplicationHelper, type: :helper do
     context "page_titleの文字列が空の場合" do
       let(:page_title) { "" }
 
-      it "タイトルがBIG BAG Storeとなること" do
-        expect(full_title(page_title)).to eq "BIG BAG Store"
+      it "タイトルがBIGBAG Storeとなること" do
+        expect(full_title(page_title)).to eq "BIGBAG Store"
       end
     end
 
     context "page_titleが存在しない場合" do
       let(:page_title) { nil }
 
-      it "タイトルがBIG BAG Storeとなること" do
-        expect(full_title(page_title)).to eq "BIG BAG Store"
+      it "タイトルがBIGBAG Storeとなること" do
+        expect(full_title(page_title)).to eq "BIGBAG Store"
       end
     end
 
     context "page_titleに文字列がある場合" do
       let(:page_title) { "test" }
 
-      it "タイトルがtest - BIG BAG Storeとなること" do
-        expect(full_title(page_title)).to eq "test - BIG BAG Store"
+      it "タイトルがtest - BIGBAG Storeとなること" do
+        expect(full_title(page_title)).to eq "test - BIGBAG Store"
       end
     end
   end
