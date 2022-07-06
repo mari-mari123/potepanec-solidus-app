@@ -11,11 +11,19 @@ RSpec.describe "Categories", type: :system do
     visit potepan_category_path(taxon.id)
   end
 
-  scenario "サイドバーに表示される個数と表示している商品数が一致していること" do
-    taxonomy.root.leaves.each do |taxon|
-      expect(page).to have_content taxon.name
-      expect(page).to have_content taxon.products.count
-      expect(page.all('productBox').count).to eq taxon.products.count
+  describe "ユーザーがサイドバーを操作したとき" do
+    scenario "カテゴリー名をクリックした際にカテゴリーページへ遷移すること" do
+      taxonomy.root.leaves.each do |taxon|
+        click_link taxon.name
+        expect(current_path).to eq potepan_category_path(taxon.id)
+      end
+    end
+    scenario "サイドバーに表示される個数と表示している商品数が一致していること" do
+      taxonomy.root.leaves.each do |taxon|
+        expect(page).to have_content taxon.name
+        expect(page).to have_content taxon.products.count
+        expect(page.all('productBox').count).to eq taxon.products.count
+      end
     end
   end
 end
