@@ -5,6 +5,7 @@ RSpec.describe "Categories", type: :system do
   let(:taxon) { create(:taxon, taxonomy: taxonomy) }
   let(:product) { create(:product, taxons: [taxon]) }
   let(:image) { create(:image) }
+  let(:other_product) { create(:product) }
 
   before do
     product.images << image
@@ -22,6 +23,14 @@ RSpec.describe "Categories", type: :system do
       expect(page).to have_content taxon.name
       within('div.productImage') do
         expect(page.all('.productBox').count).to eq taxon.products.all.count
+      end
+    end
+    scenario "カテゴリーに紐づく商品情報のみ表示されること" do
+      taxon = taxonomy.taxons.root
+      click_link taxon.name
+      within('div.productCaption') do
+        expect(page).to have_content product.name
+        expect(page).not_to have_content other_product.name
       end
     end
   end
