@@ -20,7 +20,6 @@ RSpec.describe "Categories", type: :system do
       taxon = taxonomy.taxons.root
       find('ul.collapse').click
       expect(page).to have_content taxon.name
-      expect(page).to have_content taxon.products.count
       within('div.productImage') do
         expect(page.all('.productBox').count).to eq taxon.products.all.count
       end
