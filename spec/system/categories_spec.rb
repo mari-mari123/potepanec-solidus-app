@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Categories", type: :system do
   let(:taxonomy) { create(:taxonomy) }
-  let(:taxon) { create(:taxon) }
+  let(:taxon) { create(:taxon, taxonomy: taxonomy) }
   let(:product) { create(:product, taxons: [taxon]) }
   let(:image) { create(:image) }
 
@@ -13,16 +13,16 @@ RSpec.describe "Categories", type: :system do
 
   describe "ユーザーがサイドバーを操作したとき" do
     scenario "カテゴリー名をクリックした際にカテゴリーページへ遷移すること" do
-      taxonomy.root.leaves.each do |taxon|
-        click_link taxon.name
-        expect(current_path).to eq potepan_category_path(taxon.id)
-      end
+      click_link taxonomy.taxons.root.name
+      expect(current_path).to eq potepan_category_path(taxon.id)
     end
     scenario "サイドバーに表示される個数と表示している商品数が一致していること" do
-      taxonomy.root.leaves.each do |taxon|
-        expect(page).to have_content taxon.name
-        expect(page).to have_content taxon.products.count
-        expect(page.all('productBox').count).to eq taxon.products.count
+      taxon = taxonomy.taxons.root
+      find('ul.collapse').click
+      expect(page).to have_content taxon.name
+      expect(page).to have_content taxon.products.count
+      within('div.productImage') do
+        expect(page.all('.productBox').count).to eq taxon.products.all.count
       end
     end
   end
