@@ -24,6 +24,7 @@ RSpec.describe "Potepan::Categories", type: :request do
         expect(response.body).to include product.display_price.to_s
       end
       it "左サイドバーにカテゴリー名が含まれること" do
+        expect(response.body).to include taxonomy.name
         expect(response.body).to include taxon.name
       end
     end
