@@ -5,7 +5,7 @@ RSpec.describe "Categories", type: :system do
   let(:taxon) { create(:taxon, taxonomy: taxonomy) }
   let(:product) { create(:product, taxons: [taxon]) }
   let(:image) { create(:image) }
-  let(:other_product) { create(:product) }
+  let!(:other_product) { create(:product) }
 
   before do
     product.images << image
