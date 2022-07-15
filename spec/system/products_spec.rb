@@ -47,5 +47,19 @@ RSpec.describe "Products", type: :system do
         expect(page).not_to have_content not_related_product.name
       end
     end
+
+    scenario "関連する商品名をクリックするとその商品の詳細ページへ移動すること" do
+      within('div.productsContent') do
+        click_link related_product_1.name
+      end
+      expect(current_path).to eq potepan_product_path(related_product_1.id)
+    end
+
+    scenario "関連する商品価格をクリックするとその商品の詳細ページへ移動すること" do
+      within('div.productsContent') do
+        click_link related_product_1.display_price, match: :first
+      end
+      expect(current_path).to eq potepan_product_path(related_product_1.id)
+    end
   end
 end
