@@ -26,7 +26,7 @@
           <div class="media-left productSlider">
             <div id="carousel" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
-                <% @product.images.each_with_index do |image, index|%>
+                <% @images.each_with_index do |image, index| %>
                   <div class="item <%= "active" if index.zero? %>" data-thumb="<%= index %>">
                     <%= image_tag image.attachment(:large) %>
                   </div>
@@ -36,7 +36,7 @@
             <div class="clearfix">
               <div id="thumbcarousel" class="carousel slide" data-interval="false">
                 <div class="carousel-inner">
-                  <% @product.images.each_with_index do |image, index|%>
+                  <% @images.each_with_index do |image, index| %>
                     <div data-target="#carousel" data-slide-to="<%= index %>" class="thumb" >
                       <%= image_tag image.attachment(:small) %>
                     </div>
@@ -54,8 +54,8 @@
           <div class="media-body">
             <ul class="list-inline">
               <li>
-                <%= link_to potepan_product_grid_left_sidebar_path do %>
-                  <i class="fa fa-reply" aria-hidden="true"></i>一覧ページへ戻る</a>
+                <%= link_to potepan_category_path(@product.taxons.first.id) do %>
+                  <i class="fa fa-reply" aria-hidden="true"></i>一覧ページへ戻る
                 <% end %>
               </li>
             </ul>

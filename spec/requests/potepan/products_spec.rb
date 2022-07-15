@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Potepan::Product", type: :request do
   describe "#show" do
-    let(:product) { create(:product) }
+    let(:taxon) { create(:taxon) }
+    let(:product) { create(:product, taxons: [taxon]) }
 
     before do
       get potepan_product_path(product.id)
@@ -16,9 +17,11 @@ RSpec.describe "Potepan::Product", type: :request do
       it "商品名が含まれていること" do
         expect(response.body).to include product.name
       end
+
       it "商品説明が含まれていること" do
         expect(response.body).to include product.description
       end
+
       it "商品金額が含まれていること" do
         expect(response.body).to include product.display_price.to_s
       end
