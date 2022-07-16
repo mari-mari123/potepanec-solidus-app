@@ -6,11 +6,6 @@ RSpec.describe "Products", type: :system do
   let(:taxon_2) { create(:taxon, taxonomy: taxonomy) }
   let(:product) { create(:product, taxons: [taxon_1]) }
   let(:image) { create(:image) }
-  let(:image_1) { create(:image) }
-  let(:image_2) { create(:image) }
-  let(:image_3) { create(:image) }
-  let(:image_4) { create(:image) }
-  let(:image_5) { create(:image) }
   let!(:not_related_product) { create(:product, name: 'not_related_product', taxons: [taxon_2]) }
   let!(:related_product_1) { create(:product, name: 'related_product_1', taxons: [taxon_1]) }
   let!(:related_product_2) { create(:product, name: 'related_product_2', taxons: [taxon_1]) }
@@ -18,12 +13,12 @@ RSpec.describe "Products", type: :system do
   let!(:related_product_4) { create(:product, name: 'related_product_4', taxons: [taxon_1]) }
 
   before do
-    product.images << image
-    not_related_product.images << image_1
-    related_product_1.images << image_2
-    related_product_2.images << image_3
-    related_product_3.images << image_4
-    related_product_4.images << image_5
+    product.images << create(:image)
+    not_related_product.images << create(:image)
+    related_product_1.images << create(:image)
+    related_product_2.images << create(:image)
+    related_product_3.images << create(:image)
+    related_product_4.images << create(:image)
     visit potepan_product_path(product.id)
   end
 
