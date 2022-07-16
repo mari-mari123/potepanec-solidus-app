@@ -4,9 +4,7 @@ module Potepan::ProductDecorator
       Spree::Product.
         distinct.
         in_taxons(taxons).
-        where.not(id: id).
-        limit(4).
-        includes(master: [:default_price, images: [attachment_attachment: :blob]])
+        where.not(id: id)
     end
   end
 end
