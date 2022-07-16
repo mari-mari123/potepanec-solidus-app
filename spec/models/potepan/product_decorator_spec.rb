@@ -2,21 +2,22 @@ require 'rails_helper'
 
 RSpec.describe Potepan::ProductDecorator, type: :model do
   let(:taxonomy) { create(:taxonomy) }
-  let(:taxon) { create(:taxon, taxonomy: taxonomy) }
-  let(:product) { create(:product, taxons: [taxon]) }
-  let!(:related_product) { create_list(:product, 4, taxons: [taxon]) }
+  let(:taxon_1) { create(:taxon, taxonomy: taxonomy) }
+  let(:taxon_2) { create(:taxon, taxonomy: taxonomy) }
+  let(:product) { create(:product, taxons: [taxon_1, taxon_2]) }
+  let!(:related_products) { create_list(:product, 5, taxons: [taxon_1, taxon_2]) }
 
-  describe "related_product" do
+  describe "#related_products" do
     it "関連する商品を取得すること" do
-      expect(product.related_products).to eq related_product
+      expect(product.related_products).to eq related_products
     end
 
-    it "商品詳細ページの商品が関連商品として取得されないこと" do
+    it "商品(product)が関連商品(related_products)として取得されないこと" do
       expect(product.related_products).not_to eq product
     end
 
     it "関連商品が重複しないこと" do
-      expect(product.related_products).to eq related_product.uniq
+      expect(product.related_products).to eq related_products.uniq
     end
   end
 end
