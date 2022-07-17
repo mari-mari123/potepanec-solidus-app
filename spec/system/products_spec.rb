@@ -7,12 +7,12 @@ RSpec.describe "Products", type: :system do
   let(:taxon3) { create(:taxon, taxonomy: taxonomy) }
   let(:product) { create(:product, taxons: [taxon1, taxon2]) }
   let(:image) { create(:image) }
-  let!(:not_related_product) { create(:product, name: 'not_related_product', taxons: [taxon3]) }
-  let!(:related_product_1) { create(:product, name: 'related_product_1', taxons: [taxon1, taxon2]) }
-  let!(:related_product_2) { create(:product, name: 'related_product_2', taxons: [taxon1, taxon2]) }
-  let!(:related_product_3) { create(:product, name: 'related_product_3', taxons: [taxon1, taxon2]) }
-  let!(:related_product_4) { create(:product, name: 'related_product_4', taxons: [taxon1, taxon2]) }
-  let!(:related_product_5) { create(:product, name: 'related_product_5', taxons: [taxon1]) }
+  let(:not_related_product) { create(:product, name: 'not_related_product', taxons: [taxon3]) }
+  let(:related_product_1) { create(:product, name: 'related_product_1', taxons: [taxon1, taxon2]) }
+  let(:related_product_2) { create(:product, name: 'related_product_2', taxons: [taxon1, taxon2]) }
+  let(:related_product_3) { create(:product, name: 'related_product_3', taxons: [taxon1, taxon2]) }
+  let(:related_product_4) { create(:product, name: 'related_product_4', taxons: [taxon1, taxon2]) }
+  let(:related_product_5) { create(:product, name: 'related_product_5', taxons: [taxon1]) }
 
   before do
     product.images << create(:image)
@@ -31,12 +31,11 @@ RSpec.describe "Products", type: :system do
   end
 
   describe "関連商品" do
+    let(:products) { [related_product_1, related_product_2, related_product_3, related_product_4] }
+
     scenario "4つの関連商品が表示すること" do
       within('div.productsContent') do
-        related_products = [
-          related_product_1, related_product_2, related_product_3, related_product_4,
-        ]
-        related_products.each do |related_product|
+        related_products.each.all? do |related_product|
           expect(page).to have_content related_product.name
         end
       end
