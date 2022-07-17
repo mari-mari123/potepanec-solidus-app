@@ -14,8 +14,8 @@ RSpec.describe Potepan::ProductDecorator, type: :model do
       expect(product.related_products).to eq related_products
     end
 
-    it "商品(product)が関連商品(related_products)として取得されないこと" do
-      expect(product.related_products).not_to eq product
+    it "レシーバーが関連商品として取得されないこと" do
+      expect(product.related_products).not_to include product
     end
 
     it "関連商品が重複しないこと" do
