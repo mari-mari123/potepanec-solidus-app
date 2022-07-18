@@ -2,10 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "Potepan::Product", type: :request do
   describe "#show" do
-    let(:taxon) { create(:taxon) }
     let(:product) { create(:product, taxons: [taxon]) }
+    let(:taxonomy) { create(:taxonomy) }
+    let(:taxon) { create(:taxon, taxonomy: taxonomy) }
+    let(:related_product) { create(:product, name: 'related_product', taxons: [taxon]) }
+    let(:image) { create(:image) }
 
     before do
+      related_product.images << image
       get potepan_product_path(product.id)
     end
 
@@ -24,6 +28,16 @@ RSpec.describe "Potepan::Product", type: :request do
 
       it "商品金額が含まれていること" do
         expect(response.body).to include product.display_price.to_s
+      end
+    end
+
+    describe "関連商品情報" do
+      it "商品名が含まれていること" do
+        expect(response.body).to include related_product.name
+      end
+
+      it "商品金額が含まれていること" do
+        expect(response.body).to include related_product.display_price.to_s
       end
     end
   end
