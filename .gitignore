@@ -198,3 +198,5 @@ crashlytics-build.properties
 fabric.properties
 
 /storage/*
+
+/config/master.key
