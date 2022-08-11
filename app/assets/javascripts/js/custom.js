@@ -229,3 +229,24 @@ function FormSubmit() {
   	addEvent(window,"resize",footerFixed);
 
   }
+
+//============================== SUGGEST =========================
+jQuery(document).ready(function() {
+	$(".suggest-js").autocomplete({
+		source: function(request, response) {
+			$.ajax({
+				url: '/potepan/suggest',
+				type: 'GET',
+				dataType: 'json',
+				data: { keyword: request.term, max_num: 5 },
+				success: function(data) {
+					response(data);
+				},
+				error: function(xhr, ts, err) {
+					response(['']);
+				},
+			});
+		},
+		autoFocus: true
+	});
+});

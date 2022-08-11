@@ -270,6 +270,9 @@ a:hover, a:focus {
   padding: 10px 15px;
   border-radius: 0;
 }
+.ui-front {
+  z-index: 1000; 
+}
 @media (max-width: 479px) {
   .topBar ul.pull-right li:nth-child(2) .dropdown-menu {
     width: 280px;
