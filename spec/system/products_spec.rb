@@ -35,7 +35,7 @@ RSpec.describe "Products", type: :system do
 
     scenario "4つの関連商品が表示すること" do
       within('div.productsContent') do
-        related_products.each.all? do |related_product|
+        products.each.all? do |related_product|
           expect(page).to have_content related_product.name
         end
       end
